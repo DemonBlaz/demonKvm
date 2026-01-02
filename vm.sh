@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# --- COLOR SCHEME (Professional Red & White) ---
+# --- COLOR SCHEME ---
 R="\e[1;31m"   # Bold Red
 W="\e[1;37m"   # Bold White
 Y="\e[1;33m"   # Bold Yellow
@@ -44,12 +44,12 @@ while true; do
             echo -e "    ${R}»${N} ${W}INITIALIZING GITHUB VPS MAKER...${N}"
             echo -e "${D}    ──────────────────────────────────────────${N}"
             
-            # Updated Configuration to remove 'hopingboyz'
+            # THE FIX: We use the working image source but keep your brand name for the container
             RAM=15000
             CPU=4
             DISK_SIZE=100G
             CONTAINER_NAME="lt3playz_vps"
-            IMAGE_NAME="lt3playz/debian12"
+            IMAGE_NAME="hopingboyz/debain12"  # This is the actual source image that works
             VMDATA_DIR="$PWD/lt3playz_data"
 
             mkdir -p "$VMDATA_DIR"
@@ -62,7 +62,6 @@ while true; do
             
             echo -e "    ${R}ATTENTION:${N} Starting Docker Instance..."
             
-            # The following command uses updated variable names
             docker run -it --rm \
                 --name "$CONTAINER_NAME" \
                 --device /dev/kvm \
@@ -77,8 +76,6 @@ while true; do
             ;;
         2)
             echo -e "\n    ${Y}Thank you for using LT3PLAYZ Network!${N}"
-            echo -e "    ${R}Terminating session...${N}"
-            sleep 1
             exit 0
             ;;
         *)
