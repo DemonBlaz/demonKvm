@@ -44,13 +44,13 @@ while true; do
             echo -e "    ${R}»${N} ${W}INITIALIZING GITHUB VPS MAKER...${N}"
             echo -e "${D}    ──────────────────────────────────────────${N}"
             
-            # Configuration
+            # Updated Configuration to remove 'hopingboyz'
             RAM=15000
             CPU=4
             DISK_SIZE=100G
-            CONTAINER_NAME="Lt3playz_VPS"
-            IMAGE_NAME="hopingboyz/debain12"
-            VMDATA_DIR="$PWD/vmdata"
+            CONTAINER_NAME="lt3playz_vps"
+            IMAGE_NAME="lt3playz/debian12"
+            VMDATA_DIR="$PWD/lt3playz_data"
 
             mkdir -p "$VMDATA_DIR"
             
@@ -62,6 +62,7 @@ while true; do
             
             echo -e "    ${R}ATTENTION:${N} Starting Docker Instance..."
             
+            # The following command uses updated variable names
             docker run -it --rm \
                 --name "$CONTAINER_NAME" \
                 --device /dev/kvm \
@@ -86,3 +87,4 @@ while true; do
             ;;
     esac
 done
+
