@@ -44,26 +44,29 @@ while true; do
             echo -e "    ${R}»${N} ${W}INITIALIZING GITHUB VPS MAKER...${N}"
             echo -e "${D}    ──────────────────────────────────────────${N}"
             
-            # THE FIX: We use the working image source but keep your brand name for the container
             RAM=15000
             CPU=4
             DISK_SIZE=100G
             CONTAINER_NAME="lt3playz_vps"
-            IMAGE_NAME="hopingboyz/debain12"  # This is the actual source image that works
+            IMAGE_NAME="hopingboyz/debain12"
             VMDATA_DIR="$PWD/lt3playz_data"
+            MY_HOSTNAME="lt3playz"
 
             mkdir -p "$VMDATA_DIR"
             
             echo -e "    ${G}✔${N} ${W}RAM:${N}  ${Y}$RAM MB${N}"
             echo -e "    ${G}✔${N} ${W}CPU:${N}  ${Y}$CPU Cores${N}"
             echo -e "    ${G}✔${N} ${W}DISK:${N} ${Y}$DISK_SIZE${N}"
-            echo -e "    ${G}✔${N} ${W}NAME:${N} ${Y}$CONTAINER_NAME${N}"
+            echo -e "    ${G}✔${N} ${W}USER:${N} ${Y}root@$MY_HOSTNAME${N}"
             echo -e "${D}    ──────────────────────────────────────────${N}"
             
             echo -e "    ${R}ATTENTION:${N} Starting Docker Instance..."
             
+            # Added --hostname and -h flags to overwrite 'hopingboyz' in the terminal
             docker run -it --rm \
                 --name "$CONTAINER_NAME" \
+                --hostname "$MY_HOSTNAME" \
+                -h "$MY_HOSTNAME" \
                 --device /dev/kvm \
                 -v "$VMDATA_DIR":/vmdata \
                 -e RAM="$RAM" \
