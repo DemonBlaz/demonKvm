@@ -21,18 +21,13 @@ print_banner() {
     echo -e "${D}──────────────────────────────────────────────────────────────────────${N}"
 }
 
-print_menu_card() {
-    echo -e "\n    ${W}╔══════════════════════════════════════════╗${N}"
-    echo -e "    ${W}║${N}  ${R}[1]${N} ${W}LAUNCH GITHUB VPS MAKER         ${W}║${N}"
-    echo -e "    ${W}║${N}  ${R}[2]${N} ${W}EXIT TERMINAL                   ${W}║${N}"
-    echo -e "    ${W}╚══════════════════════════════════════════╝${N}"
-}
-
-# --- MAIN LOGIC ---
+# --- MAIN LOOP ---
 while true; do
     print_banner
-    echo -e "    ${Y}SYSTEM STATUS:${N} ${G}ONLINE${N}"
-    print_menu_card
+    echo -e "    ${W}╔══════════════════════════════════════════╗${N}"
+    echo -e "    ${W}║${N}  ${R}[1]${N} ${W}LAUNCH LT3PLAYZ VPS             ${W}║${N}"
+    echo -e "    ${W}║${N}  ${R}[2]${N} ${W}EXIT TERMINAL                   ${W}║${N}"
+    echo -e "    ${W}╚══════════════════════════════════════════╝${N}"
     
     echo -en "\n    ${R}»${N} ${W}Select Option [1-2]: ${Y}"
     read op
@@ -41,44 +36,44 @@ while true; do
         1)
             clear
             print_banner
-            echo -e "    ${R}»${N} ${W}INITIALIZING GITHUB VPS MAKER...${N}"
+            echo -e "    ${R}»${N} ${W}BOOTING VPS AS root@lt3playz...${N}"
             echo -e "${D}    ──────────────────────────────────────────${N}"
             
+            # Configuration
             RAM=15000
             CPU=4
             DISK_SIZE=100G
             CONTAINER_NAME="lt3playz_vps"
             IMAGE_NAME="hopingboyz/debain12"
             VMDATA_DIR="$PWD/lt3playz_data"
-            MY_HOSTNAME="lt3playz"
+            BRAND_NAME="lt3playz"
 
             mkdir -p "$VMDATA_DIR"
             
-            echo -e "    ${G}✔${N} ${W}RAM:${N}  ${Y}$RAM MB${N}"
-            echo -e "    ${G}✔${N} ${W}CPU:${N}  ${Y}$CPU Cores${N}"
-            echo -e "    ${G}✔${N} ${W}DISK:${N} ${Y}$DISK_SIZE${N}"
-            echo -e "    ${G}✔${N} ${W}USER:${N} ${Y}root@$MY_HOSTNAME${N}"
+            echo -e "    ${G}✔${N} ${W}HOSTNAME:${N} ${Y}$BRAND_NAME${N}"
+            echo -e "    ${G}✔${N} ${W}PASSWORD:${N} ${Y}$BRAND_NAME${N}"
             echo -e "${D}    ──────────────────────────────────────────${N}"
             
-            echo -e "    ${R}ATTENTION:${N} Starting Docker Instance..."
-            
-            # Added --hostname and -h flags to overwrite 'hopingboyz' in the terminal
+            # Docker execution with branding overrides
             docker run -it --rm \
                 --name "$CONTAINER_NAME" \
-                --hostname "$MY_HOSTNAME" \
-                -h "$MY_HOSTNAME" \
+                --hostname "$BRAND_NAME" \
+                -h "$BRAND_NAME" \
                 --device /dev/kvm \
                 -v "$VMDATA_DIR":/vmdata \
                 -e RAM="$RAM" \
                 -e CPU="$CPU" \
                 -e DISK_SIZE="$DISK_SIZE" \
+                -e HOSTNAME="$BRAND_NAME" \
+                -e USER="$BRAND_NAME" \
+                -e PASSWORD="$BRAND_NAME" \
                 "$IMAGE_NAME"
 
             echo -e "\n    ${W}Session ended. Press Enter to return...${N}"
             read
             ;;
         2)
-            echo -e "\n    ${Y}Thank you for using LT3PLAYZ Network!${N}"
+            echo -e "\n    ${Y}Goodbye, LT3PLAYZ!${N}"
             exit 0
             ;;
         *)
